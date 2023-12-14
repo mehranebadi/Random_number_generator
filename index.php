@@ -1,18 +1,6 @@
 <?php
 
-require_once ".\App\index\index-php.php";
-use App\index\Make_A_Random;
-
-$new = new Make_A_Random();
-$new->EntryValidation();
-
-
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    $side =(int)strtok($_POST["side"],$_POST["side"][0]);
-    $dice = (int)$_POST["dice"];
-    $new->MakeRandom($side,$dice);
-}
+require_once ".\App\index\index.php";
 
 ?>
 
@@ -31,18 +19,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 </head>
 
 <body>
-    <?php include (".\header.php"); ?>
+    <?php include (".\inc\header.php"); ?>
     <div id="main-div">
         <div>
             <h2 style="font-size:1rem">
-                <?php for($i = 0;$i<count($new->rand_list);$i++){ ?>
-                    <?php echo "Dice number {$i}:"." ".$new->rand_list[$i]."," ?>
+                <?php for($i = 0;$i<count($Object->rand_list);$i++){ ?>
+                    <?php echo  $Object->rand_list[$i]."," ?>
 
                  <?php } ?>   
             </h2>
         <h2>
-            <?php if($new->total != 0){ ?>
-            <?php echo "Total is:"." ".$new->total ?> </h2>
+            <?php if($Object->total != 0){ ?>
+            <?php echo "Total is:"." ".$Object->total ?> </h2>
             <?php } ?>
         </div><br>
         
@@ -54,9 +42,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     </div>
 
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST") { ?>
-        <?php $error = isset($new->error['dice']['empty']) ?>
+        <?php $error = isset($Object2->error['dice']['empty']) ?>
         <?php if($error) { ?>
-                <p style="color:red"> <?php echo $new->error["dice"]["empty"]; ?> </p>
+                <p style="color:red"> <?php echo $Object2->error["dice"]["empty"]; ?> </p>
         <?php } ?>   
         <?php } ?><br>  
 
@@ -73,10 +61,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST") { ?>
             
-                <?php $error = isset($new->error['side']['empty']) ?>
+                <?php $error = isset($Object2->error['side']['empty']) ?>
                 <?php if($error) { ?>
 
-                <p style="color:red;"><?php echo $new->error['side']['empty'] ?> </p>
+                <p style="color:red;"><?php echo $Object2->error['side']['empty'] ?> </p>
 
         <?php } ?>
         <?php } ?><br>    
